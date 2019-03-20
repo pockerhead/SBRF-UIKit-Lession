@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "SBRFMainTabBarController.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    self.window = [UIWindow new];
+    self.window.rootViewController = [SBRFMainTabBarController new];
+    [self.window makeKeyAndVisible];
     return YES;
 }
 

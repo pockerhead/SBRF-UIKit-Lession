@@ -8,24 +8,37 @@
 
 /* Begin PBXBuildFile section */
 		FEECBA792242294D00145033 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FEECBA782242294D00145033 /* AppDelegate.m */; };
-		FEECBA7C2242294D00145033 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEECBA7B2242294D00145033 /* ViewController.m */; };
-		FEECBA7F2242294D00145033 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEECBA7D2242294D00145033 /* Main.storyboard */; };
 		FEECBA812242294F00145033 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FEECBA802242294F00145033 /* Assets.xcassets */; };
 		FEECBA842242294F00145033 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEECBA822242294F00145033 /* LaunchScreen.storyboard */; };
 		FEECBA872242294F00145033 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FEECBA862242294F00145033 /* main.m */; };
+		FEECBA8F2242299900145033 /* SBRFMainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEECBA8E2242299900145033 /* SBRFMainTabBarController.m */; };
+		FEECBA9422422A5500145033 /* SBRFUIkitController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEECBA9322422A5500145033 /* SBRFUIkitController.m */; };
+		FEECBA9922423CE500145033 /* SBRFUIKitTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEECBA9822423CE400145033 /* SBRFUIKitTableViewController.m */; };
+		FEECBA9C22423D7900145033 /* AnimalViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FEECBA9B22423D7900145033 /* AnimalViewModel.m */; };
+		FEECBA9F22423E8F00145033 /* LeftAlignedImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEECBA9E22423E8F00145033 /* LeftAlignedImageCell.m */; };
+		FEECBAA222423EA900145033 /* RightAlignedImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEECBAA122423EA900145033 /* RightAlignedImageCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		FEECBA742242294D00145033 /* SBRF-UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SBRF-UIKit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEECBA772242294D00145033 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FEECBA782242294D00145033 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		FEECBA7A2242294D00145033 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		FEECBA7B2242294D00145033 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		FEECBA7E2242294D00145033 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FEECBA802242294F00145033 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FEECBA832242294F00145033 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FEECBA852242294F00145033 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FEECBA862242294F00145033 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FEECBA8D2242299900145033 /* SBRFMainTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBRFMainTabBarController.h; sourceTree = "<group>"; };
+		FEECBA8E2242299900145033 /* SBRFMainTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBRFMainTabBarController.m; sourceTree = "<group>"; };
+		FEECBA9222422A5500145033 /* SBRFUIkitController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBRFUIkitController.h; sourceTree = "<group>"; };
+		FEECBA9322422A5500145033 /* SBRFUIkitController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBRFUIkitController.m; sourceTree = "<group>"; };
+		FEECBA9722423CE400145033 /* SBRFUIKitTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBRFUIKitTableViewController.h; sourceTree = "<group>"; };
+		FEECBA9822423CE400145033 /* SBRFUIKitTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBRFUIKitTableViewController.m; sourceTree = "<group>"; };
+		FEECBA9A22423D7900145033 /* AnimalViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimalViewModel.h; sourceTree = "<group>"; };
+		FEECBA9B22423D7900145033 /* AnimalViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnimalViewModel.m; sourceTree = "<group>"; };
+		FEECBA9D22423E8F00145033 /* LeftAlignedImageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeftAlignedImageCell.h; sourceTree = "<group>"; };
+		FEECBA9E22423E8F00145033 /* LeftAlignedImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeftAlignedImageCell.m; sourceTree = "<group>"; };
+		FEECBAA022423EA900145033 /* RightAlignedImageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RightAlignedImageCell.h; sourceTree = "<group>"; };
+		FEECBAA122423EA900145033 /* RightAlignedImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RightAlignedImageCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,17 +71,58 @@
 		FEECBA762242294D00145033 /* SBRF-UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				FEECBA9522422AAB00145033 /* Modules */,
+				FEECBA8D2242299900145033 /* SBRFMainTabBarController.h */,
+				FEECBA8E2242299900145033 /* SBRFMainTabBarController.m */,
 				FEECBA772242294D00145033 /* AppDelegate.h */,
 				FEECBA782242294D00145033 /* AppDelegate.m */,
-				FEECBA7A2242294D00145033 /* ViewController.h */,
-				FEECBA7B2242294D00145033 /* ViewController.m */,
-				FEECBA7D2242294D00145033 /* Main.storyboard */,
 				FEECBA802242294F00145033 /* Assets.xcassets */,
 				FEECBA822242294F00145033 /* LaunchScreen.storyboard */,
 				FEECBA852242294F00145033 /* Info.plist */,
 				FEECBA862242294F00145033 /* main.m */,
 			);
 			path = "SBRF-UIKit";
+			sourceTree = "<group>";
+		};
+		FEECBA9022422A2200145033 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				FEECBA9222422A5500145033 /* SBRFUIkitController.h */,
+				FEECBA9322422A5500145033 /* SBRFUIkitController.m */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		FEECBA9122422A2F00145033 /* UICollections */ = {
+			isa = PBXGroup;
+			children = (
+				FEECBAA32242550D00145033 /* UITableView */,
+			);
+			path = UICollections;
+			sourceTree = "<group>";
+		};
+		FEECBA9522422AAB00145033 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				FEECBA9122422A2F00145033 /* UICollections */,
+				FEECBA9022422A2200145033 /* UIKit */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		FEECBAA32242550D00145033 /* UITableView */ = {
+			isa = PBXGroup;
+			children = (
+				FEECBA9722423CE400145033 /* SBRFUIKitTableViewController.h */,
+				FEECBA9822423CE400145033 /* SBRFUIKitTableViewController.m */,
+				FEECBA9A22423D7900145033 /* AnimalViewModel.h */,
+				FEECBA9B22423D7900145033 /* AnimalViewModel.m */,
+				FEECBA9D22423E8F00145033 /* LeftAlignedImageCell.h */,
+				FEECBA9E22423E8F00145033 /* LeftAlignedImageCell.m */,
+				FEECBAA022423EA900145033 /* RightAlignedImageCell.h */,
+				FEECBAA122423EA900145033 /* RightAlignedImageCell.m */,
+			);
+			path = UITableView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,7 +184,6 @@
 			files = (
 				FEECBA842242294F00145033 /* LaunchScreen.storyboard in Resources */,
 				FEECBA812242294F00145033 /* Assets.xcassets in Resources */,
-				FEECBA7F2242294D00145033 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,23 +194,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FEECBA7C2242294D00145033 /* ViewController.m in Sources */,
 				FEECBA872242294F00145033 /* main.m in Sources */,
+				FEECBA8F2242299900145033 /* SBRFMainTabBarController.m in Sources */,
+				FEECBA9F22423E8F00145033 /* LeftAlignedImageCell.m in Sources */,
+				FEECBA9C22423D7900145033 /* AnimalViewModel.m in Sources */,
+				FEECBA9922423CE500145033 /* SBRFUIKitTableViewController.m in Sources */,
 				FEECBA792242294D00145033 /* AppDelegate.m in Sources */,
+				FEECBA9422422A5500145033 /* SBRFUIkitController.m in Sources */,
+				FEECBAA222423EA900145033 /* RightAlignedImageCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		FEECBA7D2242294D00145033 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FEECBA7E2242294D00145033 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		FEECBA822242294F00145033 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

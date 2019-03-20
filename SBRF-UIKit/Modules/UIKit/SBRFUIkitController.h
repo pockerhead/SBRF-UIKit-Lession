@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  SBRFUIkitController.h
 //  SBRF-UIKit
 //
 //  Created by Artem Balashov on 20/03/2019.
@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+NS_ASSUME_NONNULL_BEGIN
 
+@interface SBRFUIkitController : UIViewController
 
 @end
 
+NS_ASSUME_NONNULL_END
