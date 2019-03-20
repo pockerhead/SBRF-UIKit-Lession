@@ -14,6 +14,7 @@
 @interface SBRFUIKitTableViewController () <UITableViewDelegate, UITableViewDataSource>
     
 @property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray<NSArray *> *sections;
 @property (strong, nonatomic) NSArray<AnimalViewModel *> *animals;
     
 @end
@@ -25,6 +26,11 @@
     self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
     [self.view addSubview:self.tableView];
     self.animals = [self getDataSource];
+    NSArray *initialSections = @[
+                                 @[@"UICollectionView"],
+                                 self.animals
+                                 ];
+    self.sections = [NSMutableArray arrayWithArray:initialSections];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[RightAlignedImageCell class] forCellReuseIdentifier:NSStringFromClass([RightAlignedImageCell class])];
@@ -40,6 +46,64 @@
     
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
+    switch (indexPath.section) {
+        case 0:{
+            NSString *text = self.sections[indexPath.section][indexPath.row];
+            UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"navigationCell"];
+            cell.textLabel.text = text;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            return cell;
+            break;
+        }
+        case 1:{
+            return [self rowForAnimalSection:indexPath];
+            break;
+        }
+        
+        default:
+        break;
+    }
+    return [UITableViewCell new];
+}
+    
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return self.sections.count;
+}
+    
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.sections[section].count;
+}
+
+    
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.section) {
+        case 1:
+        return 80;
+        break;
+        default:
+        break;
+    }
+    return UITableViewAutomaticDimension;
+
+}
+    
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.section) {
+        case 1:
+        [self didSelectAnimalCellAtIndexPath:indexPath];
+        break;
+        default:
+        break;
+    }
+    
+}
+    
+- (UITableViewCell *)rowForAnimalSection:(NSIndexPath *)indexPath
+{
     UITableViewCell<AnimalViewModelProtocol> *cell;
     if (indexPath.row % 2 == 0) {
         cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([RightAlignedImageCell class])];
@@ -51,17 +115,16 @@
     return cell;
 }
     
-- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (void)didSelectAnimalCellAtIndexPath:(NSIndexPath *)indexPath
 {
-    return self.animals.count;
+    AnimalViewModel *selectedAnimal = self.animals[indexPath.row];
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:selectedAnimal.animalName message:selectedAnimal.animalDescription preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:action];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
-    
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 80;
-}
-    
 - (NSArray<AnimalViewModel *> *)getDataSource
 {
     NSMutableArray<AnimalViewModel *> *arr = [NSMutableArray new];
@@ -72,14 +135,5 @@
     return [arr copy];
 }
     
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    AnimalViewModel *selectedAnimal = self.animals[indexPath.row];
-    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:selectedAnimal.animalName message:selectedAnimal.animalDescription preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
-    [alertController addAction:action];
-    [self presentViewController:alertController animated:YES completion:nil];
-}
     
 @end
