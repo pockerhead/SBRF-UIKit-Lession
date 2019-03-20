@@ -15,6 +15,8 @@
     
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray<NSArray *> *sections;
+@property (strong, nonatomic) NSMutableArray<NSMutableArray <NSNumber *>*> *sectionsSizes;
+
 @property (strong, nonatomic) NSArray<AnimalViewModel *> *animals;
 @property (strong, nonatomic) LeftAlignedImageCell *dummyCell;
     
@@ -27,12 +29,26 @@
     self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
     [self.view addSubview:self.tableView];
     self.animals = [self getDataSource];
+    
+    
     NSArray *initialSections = @[
                                  @[@"UICollectionView"],
                                  self.animals
                                  ];
-    self.sections = [NSMutableArray arrayWithArray:initialSections];
+    NSArray *initialSectionsSizes = @[
+                                      @[[[NSNumber alloc] initWithFloat:UITableViewAutomaticDimension]]
+                                      ];
+    self.sectionsSizes = [NSMutableArray arrayWithArray:initialSectionsSizes];
+    
+    NSMutableArray *animalsSizes = [NSMutableArray new];
     self.dummyCell = [[LeftAlignedImageCell alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame) ,0)];
+
+    for (AnimalViewModel *animal in self.animals) {
+        [animalsSizes addObject:[[NSNumber alloc] initWithFloat:[self.dummyCell sizeForModel:animal]]];
+    }
+    [self.sectionsSizes addObject:animalsSizes];
+    
+    self.sections = [NSMutableArray arrayWithArray:initialSections];
     [self.tableView registerClass:[RightAlignedImageCell class] forCellReuseIdentifier:NSStringFromClass([RightAlignedImageCell class])];
     [self.tableView registerClass:[LeftAlignedImageCell class] forCellReuseIdentifier:NSStringFromClass([LeftAlignedImageCell class])];
     self.tableView.delegate = self;
@@ -81,17 +97,8 @@
     
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.section) {
-        case 1:{
-            AnimalViewModel *model = self.sections[indexPath.section][indexPath.row];
-            return [self.dummyCell sizeForModel:model];
-        }
-        break;
-        default:
-        break;
-    }
-    return UITableViewAutomaticDimension;
-
+    NSNumber *height = self.sectionsSizes[indexPath.section][indexPath.row];
+    return [height floatValue];
 }
     
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
