@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) UILabel* descriptionLabel;
 @property (strong, nonatomic) UIImageView* animalImageView;
 
+- (CGFloat) sizeForModel:(AnimalViewModel *)model;
     
 @end
 

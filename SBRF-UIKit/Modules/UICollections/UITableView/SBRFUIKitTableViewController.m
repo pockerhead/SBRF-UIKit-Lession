@@ -16,6 +16,7 @@
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray<NSArray *> *sections;
 @property (strong, nonatomic) NSArray<AnimalViewModel *> *animals;
+@property (strong, nonatomic) LeftAlignedImageCell *dummyCell;
     
 @end
 
@@ -31,10 +32,11 @@
                                  self.animals
                                  ];
     self.sections = [NSMutableArray arrayWithArray:initialSections];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
+    self.dummyCell = [[LeftAlignedImageCell alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame) ,0)];
     [self.tableView registerClass:[RightAlignedImageCell class] forCellReuseIdentifier:NSStringFromClass([RightAlignedImageCell class])];
     [self.tableView registerClass:[LeftAlignedImageCell class] forCellReuseIdentifier:NSStringFromClass([LeftAlignedImageCell class])];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     self.navigationItem.title = @"UITableView";
 }
     
@@ -80,8 +82,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.section) {
-        case 1:
-        return 80;
+        case 1:{
+            AnimalViewModel *model = self.sections[indexPath.section][indexPath.row];
+            return [self.dummyCell sizeForModel:model];
+        }
         break;
         default:
         break;
@@ -131,6 +135,7 @@
     for (int i = 0; i < 50; i++) {
         [arr addObject:[[AnimalViewModel alloc] initWithName:@"Альпака" description:@"Домашнее парнокопытное животное, произошедшее от викуньи. Разводят в высокогорном поясе Южной Америки. На сегодняшний день там обитает около трёх миллионов альпака, большая часть из которых населяет Перу." andImage:[UIImage imageNamed:@"alpaka"]]];
         [arr addObject:[[AnimalViewModel alloc] initWithName:@"Обыкновенный бегемот" description:@"млекопитающее из отряда парнокопытных, подотряда свинообразных, семейства бегемотовых, единственный современный вид рода Hippopotamus." andImage:[UIImage imageNamed:@"hyppopotamus"]]];
+        [arr addObject:[[AnimalViewModel alloc] initWithName:@"Чёрная вдова" description:@"Вид пауков, распространённый в Северной и Южной Америке. Опасен для человека." andImage:[UIImage imageNamed:@"blackWidow"]]];
     }
     return [arr copy];
 }

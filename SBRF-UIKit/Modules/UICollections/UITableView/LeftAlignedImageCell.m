@@ -21,6 +21,7 @@
     [self.contentView addSubview:_descriptionLabel];
     
     _descriptionLabel.numberOfLines = 0;
+    _animalImageView.contentMode = UIViewContentModeScaleAspectFill;
     
     return self;
 }
@@ -30,7 +31,7 @@
     self.animalImageView.frame = CGRectMake(16, 16, 40, 40);
     CGFloat labelX = CGRectGetMaxX(self.animalImageView.frame) + 16;
     self.titleLabel.frame = CGRectMake(labelX, 16, CGRectGetWidth(self.contentView.frame) - labelX - 16, 16);
-    self.descriptionLabel.frame = CGRectMake(labelX, CGRectGetMaxY(self.titleLabel.frame) + 8, CGRectGetWidth(self.contentView.frame) - labelX - 16, 16);
+    self.descriptionLabel.frame = CGRectMake(labelX, CGRectGetMaxY(self.titleLabel.frame) + 8, CGRectGetWidth(self.contentView.frame) - labelX - 16, CGRectGetHeight(self.contentView.frame) - 40 - CGRectGetHeight(self.titleLabel.frame));
 }
 
 - (void)configureWithModel:(nonnull AnimalViewModel *)model
@@ -38,9 +39,15 @@
     self.titleLabel.text = model.animalName;
     self.descriptionLabel.text = model.animalDescription;
     self.animalImageView.image = model.image;
+}
     
-    [self.descriptionLabel sizeToFit];
-    [self.titleLabel sizeToFit];
+- (CGFloat) sizeForModel:(AnimalViewModel *)model
+{
+    CGFloat height = 48;
+    CGRect boundingRect = [model.animalDescription boundingRectWithSize:CGSizeMake(CGRectGetWidth(self.contentView.frame) - 16 - 56, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: self.descriptionLabel.font} context:nil];
+    CGFloat descriptionHeight = CGRectGetHeight(boundingRect);
+    height += descriptionHeight;
+    return height;
 }
     
 @end
