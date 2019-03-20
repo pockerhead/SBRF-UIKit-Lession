@@ -48,11 +48,7 @@
     }
     AnimalViewModel *animalViewModel = self.animals[indexPath.row];
     [cell configureWithModel:animalViewModel];
-    if (cell) {
-        return cell;
-    } else {
-        return [UITableViewCell new];
-    }
+    return cell;
 }
     
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section
