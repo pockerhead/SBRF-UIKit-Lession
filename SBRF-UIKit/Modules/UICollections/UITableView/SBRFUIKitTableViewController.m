@@ -27,17 +27,19 @@
     
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
     [self.view addSubview:self.tableView];
     self.animals = [self getDataSource];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     NSArray *initialSections = @[
-                                 @[@"UICollectionView"],
+                                 @[@"UICollectionView - DynamicsNotEnabled",
+                                   @"UICollectionView - DynamicsEnabled"],
                                  self.animals
                                  ];
     NSArray *initialSectionsSizes = @[
-                                      @[[[NSNumber alloc] initWithFloat:UITableViewAutomaticDimension]]
+                                      @[[[NSNumber alloc] initWithFloat:UITableViewAutomaticDimension],
+                                        [[NSNumber alloc] initWithFloat:UITableViewAutomaticDimension]]
                                       ];
     self.sectionsSizes = [NSMutableArray arrayWithArray:initialSectionsSizes];
     
@@ -110,7 +112,8 @@
     switch (indexPath.section) {
         case 0:
         {
-            SBRFUIKitCollectionViewController *collectionViewController = [SBRFUIKitCollectionViewController new];
+            SBRFUIKitCollectionViewController *collectionViewController = [[SBRFUIKitCollectionViewController alloc] initWithEnableDynamics:!(indexPath.row % 2 == 0)];
+            collectionViewController.navigationItem.title = self.sections[indexPath.section][indexPath.row];
             [self.navigationController pushViewController:collectionViewController animated:YES];
             break;
         }

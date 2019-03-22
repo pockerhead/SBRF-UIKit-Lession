@@ -23,8 +23,8 @@ class WaterfallBouncesLayout: UICollectionViewFlowLayout {
 
     public var enableDynamics: Bool = false
     
-    fileprivate var numberOfColumns = 2
-    fileprivate var cellPadding: CGFloat = 6
+    fileprivate var numberOfColumns = 3
+    fileprivate var cellPadding: CGFloat = 10
     
     // 3
     fileprivate var cache = [UICollectionViewLayoutAttributes]()
@@ -55,8 +55,7 @@ class WaterfallBouncesLayout: UICollectionViewFlowLayout {
         self.animator.addBehavior(collisionBehaviour)
         self.collisionBehaviour.collisionMode = .everything
         self.collisionBehaviour.translatesReferenceBoundsIntoBoundary = true
-        behaviourItem.elasticity = 0.3
-        behaviourItem.allowsRotation = false
+        behaviourItem.elasticity = 0.8
         animator.addBehavior(behaviourItem)
     }
     
@@ -107,7 +106,7 @@ class WaterfallBouncesLayout: UICollectionViewFlowLayout {
             cache.forEach{ item in
                 let behavior = UIAttachmentBehavior(item: item as UIDynamicItem, attachedToAnchor: item.center)
                 behavior.length = 0
-                behavior.damping = 0.2
+                behavior.damping = 0.8
                 behavior.frequency = 1
                 animator.addBehavior(behavior)
                 collisionBehaviour.addItem(item)

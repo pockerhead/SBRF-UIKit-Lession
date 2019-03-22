@@ -12,9 +12,11 @@ class SBRFUIKitCollectionViewController: UIViewController {
     
     let layout = WaterfallBouncesLayout()
     
+    private var enableDynamics: Bool!
+    
     lazy var collectionView: UICollectionView = {
         layout.delegate = self
-        
+        layout.enableDynamics = enableDynamics
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -22,6 +24,15 @@ class SBRFUIKitCollectionViewController: UIViewController {
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: String(describing: UICollectionViewCell.self))
         return collectionView
     }()
+    
+    @objc init(enableDynamics: Bool = false) {
+        super.init(nibName: nil, bundle: nil)
+        self.enableDynamics = enableDynamics
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
