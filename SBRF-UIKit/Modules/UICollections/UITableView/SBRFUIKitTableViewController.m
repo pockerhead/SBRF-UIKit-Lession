@@ -10,6 +10,7 @@
 #import "AnimalViewModel.h"
 #import "LeftAlignedImageCell.h"
 #import "RightAlignedImageCell.h"
+#import "SBRF_UIKit-Swift.h"
 
 @interface SBRFUIKitTableViewController () <UITableViewDelegate, UITableViewDataSource>
     
@@ -26,10 +27,10 @@
     
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
     [self.view addSubview:self.tableView];
     self.animals = [self getDataSource];
-    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     NSArray *initialSections = @[
                                  @[@"UICollectionView"],
@@ -61,6 +62,8 @@
     self.tableView.frame = self.view.frame;
     [self.tableView layoutIfNeeded];
 }
+    
+#pragma mark - UITableViewDataSource
     
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
@@ -94,6 +97,7 @@
     return self.sections[section].count;
 }
 
+#pragma mark UITableViewDelegate
     
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -104,6 +108,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.section) {
+        case 0:
+        {
+            SBRFUIKitCollectionViewController *collectionViewController = [SBRFUIKitCollectionViewController new];
+            [self.navigationController pushViewController:collectionViewController animated:YES];
+            break;
+        }
         case 1:
         [self didSelectAnimalCellAtIndexPath:indexPath];
         break;
@@ -111,19 +121,6 @@
         break;
     }
     
-}
-    
-- (UITableViewCell *)rowForAnimalSection:(NSIndexPath *)indexPath
-{
-    UITableViewCell<AnimalViewModelProtocol> *cell;
-    if (indexPath.row % 2 == 0) {
-        cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([RightAlignedImageCell class])];
-    } else {
-        cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([LeftAlignedImageCell class])];
-    }
-    AnimalViewModel *animalViewModel = self.animals[indexPath.row];
-    [cell configureWithModel:animalViewModel];
-    return cell;
 }
     
 - (void)didSelectAnimalCellAtIndexPath:(NSIndexPath *)indexPath
@@ -135,7 +132,22 @@
     [alertController addAction:action];
     [self presentViewController:alertController animated:YES completion:nil];
 }
+    
+#pragma mark Helpers
 
+- (UITableViewCell *)rowForAnimalSection:(NSIndexPath *)indexPath
+    {
+        UITableViewCell<AnimalViewModelProtocol> *cell;
+        if (indexPath.row % 2 == 0) {
+            cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([RightAlignedImageCell class])];
+        } else {
+            cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([LeftAlignedImageCell class])];
+        }
+        AnimalViewModel *animalViewModel = self.animals[indexPath.row];
+        [cell configureWithModel:animalViewModel];
+        return cell;
+    }
+    
 - (NSArray<AnimalViewModel *> *)getDataSource
 {
     NSMutableArray<AnimalViewModel *> *arr = [NSMutableArray new];

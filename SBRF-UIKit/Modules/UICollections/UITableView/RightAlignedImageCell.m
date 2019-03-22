@@ -22,6 +22,7 @@
         
         _descriptionLabel.numberOfLines = 0;
         _animalImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _animalImageView.layer.masksToBounds = YES;
 
         return self;
     }

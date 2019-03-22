@@ -17,6 +17,9 @@
 		FEECBA9C22423D7900145033 /* AnimalViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FEECBA9B22423D7900145033 /* AnimalViewModel.m */; };
 		FEECBA9F22423E8F00145033 /* LeftAlignedImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEECBA9E22423E8F00145033 /* LeftAlignedImageCell.m */; };
 		FEECBAA222423EA900145033 /* RightAlignedImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEECBAA122423EA900145033 /* RightAlignedImageCell.m */; };
+		FEECBAA72244EAFC00145033 /* SBRFUIKitCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEECBAA62244EAFC00145033 /* SBRFUIKitCollectionViewController.swift */; };
+		FEECBAA92244EC8C00145033 /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEECBAA82244EC8C00145033 /* CustomCollectionViewCell.swift */; };
+		FEECBAAB2244ECA300145033 /* WaterfallBouncesLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEECBAAA2244ECA300145033 /* WaterfallBouncesLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +42,10 @@
 		FEECBA9E22423E8F00145033 /* LeftAlignedImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeftAlignedImageCell.m; sourceTree = "<group>"; };
 		FEECBAA022423EA900145033 /* RightAlignedImageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RightAlignedImageCell.h; sourceTree = "<group>"; };
 		FEECBAA122423EA900145033 /* RightAlignedImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RightAlignedImageCell.m; sourceTree = "<group>"; };
+		FEECBAA52244EAFB00145033 /* SBRF-UIKit-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SBRF-UIKit-Bridging-Header.h"; sourceTree = "<group>"; };
+		FEECBAA62244EAFC00145033 /* SBRFUIKitCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBRFUIKitCollectionViewController.swift; sourceTree = "<group>"; };
+		FEECBAA82244EC8C00145033 /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
+		FEECBAAA2244ECA300145033 /* WaterfallBouncesLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterfallBouncesLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +103,7 @@
 		FEECBA9122422A2F00145033 /* UICollections */ = {
 			isa = PBXGroup;
 			children = (
+				FEECBAA42244EAE200145033 /* UICollectionView */,
 				FEECBAA32242550D00145033 /* UITableView */,
 			);
 			path = UICollections;
@@ -123,6 +131,17 @@
 				FEECBAA122423EA900145033 /* RightAlignedImageCell.m */,
 			);
 			path = UITableView;
+			sourceTree = "<group>";
+		};
+		FEECBAA42244EAE200145033 /* UICollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				FEECBAA62244EAFC00145033 /* SBRFUIKitCollectionViewController.swift */,
+				FEECBAAA2244ECA300145033 /* WaterfallBouncesLayout.swift */,
+				FEECBAA82244EC8C00145033 /* CustomCollectionViewCell.swift */,
+				FEECBAA52244EAFB00145033 /* SBRF-UIKit-Bridging-Header.h */,
+			);
+			path = UICollectionView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,6 +175,7 @@
 				TargetAttributes = {
 					FEECBA732242294D00145033 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -195,13 +215,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				FEECBA872242294F00145033 /* main.m in Sources */,
+				FEECBAA92244EC8C00145033 /* CustomCollectionViewCell.swift in Sources */,
 				FEECBA8F2242299900145033 /* SBRFMainTabBarController.m in Sources */,
 				FEECBA9F22423E8F00145033 /* LeftAlignedImageCell.m in Sources */,
 				FEECBA9C22423D7900145033 /* AnimalViewModel.m in Sources */,
+				FEECBAA72244EAFC00145033 /* SBRFUIKitCollectionViewController.swift in Sources */,
 				FEECBA9922423CE500145033 /* SBRFUIKitTableViewController.m in Sources */,
 				FEECBA792242294D00145033 /* AppDelegate.m in Sources */,
 				FEECBA9422422A5500145033 /* SBRFUIkitController.m in Sources */,
 				FEECBAA222423EA900145033 /* RightAlignedImageCell.m in Sources */,
+				FEECBAAB2244ECA300145033 /* WaterfallBouncesLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,14 +358,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 54X9L274YP;
 				INFOPLIST_FILE = "SBRF-UIKit/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pockerhead.SBRF-UIKit";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SBRF-UIKit/Modules/UICollections/UICollectionView/SBRF-UIKit-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -351,14 +380,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 54X9L274YP;
 				INFOPLIST_FILE = "SBRF-UIKit/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pockerhead.SBRF-UIKit";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SBRF-UIKit/Modules/UICollections/UICollectionView/SBRF-UIKit-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
