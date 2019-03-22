@@ -52,6 +52,8 @@ extension SBRFUIKitCollectionViewController: UICollectionViewDataSource {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CustomCollectionViewCell.self), for: indexPath) as? CustomCollectionViewCell {
             cell.layer.borderWidth = 2
             cell.layer.borderColor = UIColor.red.cgColor
+            cell.label.text = "\(indexPath.row)"
+
             return cell
         }
         return collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: UICollectionViewCell.self), for: indexPath)

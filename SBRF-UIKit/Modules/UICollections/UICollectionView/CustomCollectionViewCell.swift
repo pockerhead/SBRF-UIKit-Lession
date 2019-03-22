@@ -9,6 +9,7 @@
 import UIKit
 
 class CustomCollectionViewCell: UICollectionViewCell {
+    let label = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,11 +22,14 @@ class CustomCollectionViewCell: UICollectionViewCell {
     }
     
     private func configureUI() {
-        
+        addSubview(label)
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 30)
     }
     
     override func layoutSubviews() {
-        
+        label.center = center
+        label.frame = bounds
     }
     
 }
