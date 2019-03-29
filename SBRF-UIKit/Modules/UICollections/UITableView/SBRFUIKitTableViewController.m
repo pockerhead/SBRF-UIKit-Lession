@@ -17,6 +17,8 @@
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray<NSArray *> *sections;
 @property (strong, nonatomic) NSMutableArray<NSMutableArray <NSNumber *>*> *sectionsSizes;
+@property (assign, nonatomic) CGFloat storedContentOffsetY;
+@property (assign, nonatomic) BOOL scrollToTop;
 
 @property (strong, nonatomic) NSArray<AnimalViewModel *> *animals;
 @property (strong, nonatomic) LeftAlignedImageCell *dummyCell;
@@ -125,6 +127,21 @@
     }
     
 }
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat height = CGRectGetHeight(cell.frame);
+    cell.frame = CGRectMake(CGRectGetMinX(cell.frame), CGRectGetMinY(cell.frame), CGRectGetWidth(cell.frame), 0);
+    cell.alpha = 0;
+    [UIView animateWithDuration:0.3 animations:^{
+        
+    }];
+    UIViewAnimationOptions options = self.scrollToTop ? (UIViewAnimationOptionTransitionCrossDissolve) : (UIViewAnimationOptionTransitionCurlDown);
+    [UIView transitionWithView:cell duration:0.6 options:options animations:^{
+        cell.frame = CGRectMake(CGRectGetMinX(cell.frame), CGRectGetMinY(cell.frame), CGRectGetWidth(cell.frame), height);
+        cell.alpha = 1;
+    } completion:nil];
+}
     
 - (void)didSelectAnimalCellAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -162,5 +179,14 @@
     return [arr copy];
 }
     
-    
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (self.storedContentOffsetY) {
+        self.scrollToTop = (scrollView.contentOffset.y < self.storedContentOffsetY);
+    }
+    self.storedContentOffsetY = scrollView.contentOffset.y;
+}
+
+
 @end

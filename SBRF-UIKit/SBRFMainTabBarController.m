@@ -8,7 +8,7 @@
 
 #import "SBRFMainTabBarController.h"
 #import "SBRFUIKitTableViewController.h"
-#import "SBRFUIkitController.h"
+#import "PingPongAssembly.h"
 
 @interface SBRFMainTabBarController ()
 
@@ -24,7 +24,7 @@
 
 - (void)configureInitialViewControllers
 {
-    UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController:[SBRFUIkitController new]];
+    UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController: [PingPongAssembly createModule]];
     nav1.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"UIKit" image:nil tag:0];
     UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:[SBRFUIKitTableViewController new]];
     nav2.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"UI-Collections" image:nil tag:0];

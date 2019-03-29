@@ -7,12 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FECAC276224E0F5C008E54B2 /* PingPongPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FECAC26A224E0F5C008E54B2 /* PingPongPresenter.m */; };
+		FECAC277224E0F5C008E54B2 /* PingPongAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = FECAC26D224E0F5C008E54B2 /* PingPongAssembly.m */; };
+		FECAC278224E0F5C008E54B2 /* PingPongViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FECAC270224E0F5C008E54B2 /* PingPongViewController.m */; };
+		FECAC279224E0F5C008E54B2 /* PingPongRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = FECAC274224E0F5C008E54B2 /* PingPongRouter.m */; };
 		FEECBA792242294D00145033 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FEECBA782242294D00145033 /* AppDelegate.m */; };
 		FEECBA812242294F00145033 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FEECBA802242294F00145033 /* Assets.xcassets */; };
 		FEECBA842242294F00145033 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEECBA822242294F00145033 /* LaunchScreen.storyboard */; };
 		FEECBA872242294F00145033 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FEECBA862242294F00145033 /* main.m */; };
 		FEECBA8F2242299900145033 /* SBRFMainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEECBA8E2242299900145033 /* SBRFMainTabBarController.m */; };
-		FEECBA9422422A5500145033 /* SBRFUIkitController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEECBA9322422A5500145033 /* SBRFUIkitController.m */; };
 		FEECBA9922423CE500145033 /* SBRFUIKitTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEECBA9822423CE400145033 /* SBRFUIKitTableViewController.m */; };
 		FEECBA9C22423D7900145033 /* AnimalViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FEECBA9B22423D7900145033 /* AnimalViewModel.m */; };
 		FEECBA9F22423E8F00145033 /* LeftAlignedImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEECBA9E22423E8F00145033 /* LeftAlignedImageCell.m */; };
@@ -23,6 +26,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FECAC269224E0F5C008E54B2 /* PingPongPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongPresenter.h; sourceTree = "<group>"; };
+		FECAC26A224E0F5C008E54B2 /* PingPongPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PingPongPresenter.m; sourceTree = "<group>"; };
+		FECAC26C224E0F5C008E54B2 /* PingPongAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongAssembly.h; sourceTree = "<group>"; };
+		FECAC26D224E0F5C008E54B2 /* PingPongAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PingPongAssembly.m; sourceTree = "<group>"; };
+		FECAC26F224E0F5C008E54B2 /* PingPongViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongViewController.h; sourceTree = "<group>"; };
+		FECAC270224E0F5C008E54B2 /* PingPongViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PingPongViewController.m; sourceTree = "<group>"; };
+		FECAC272224E0F5C008E54B2 /* PingPongProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongProtocols.h; sourceTree = "<group>"; };
+		FECAC274224E0F5C008E54B2 /* PingPongRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PingPongRouter.m; sourceTree = "<group>"; };
+		FECAC275224E0F5C008E54B2 /* PingPongRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongRouter.h; sourceTree = "<group>"; };
 		FEECBA742242294D00145033 /* SBRF-UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SBRF-UIKit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEECBA772242294D00145033 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FEECBA782242294D00145033 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -32,8 +44,6 @@
 		FEECBA862242294F00145033 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FEECBA8D2242299900145033 /* SBRFMainTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBRFMainTabBarController.h; sourceTree = "<group>"; };
 		FEECBA8E2242299900145033 /* SBRFMainTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBRFMainTabBarController.m; sourceTree = "<group>"; };
-		FEECBA9222422A5500145033 /* SBRFUIkitController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBRFUIkitController.h; sourceTree = "<group>"; };
-		FEECBA9322422A5500145033 /* SBRFUIkitController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBRFUIkitController.m; sourceTree = "<group>"; };
 		FEECBA9722423CE400145033 /* SBRFUIKitTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBRFUIKitTableViewController.h; sourceTree = "<group>"; };
 		FEECBA9822423CE400145033 /* SBRFUIKitTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBRFUIKitTableViewController.m; sourceTree = "<group>"; };
 		FEECBA9A22423D7900145033 /* AnimalViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimalViewModel.h; sourceTree = "<group>"; };
@@ -59,6 +69,57 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FECAC268224E0F5C008E54B2 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				FECAC269224E0F5C008E54B2 /* PingPongPresenter.h */,
+				FECAC26A224E0F5C008E54B2 /* PingPongPresenter.m */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		FECAC26B224E0F5C008E54B2 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				FECAC26C224E0F5C008E54B2 /* PingPongAssembly.h */,
+				FECAC26D224E0F5C008E54B2 /* PingPongAssembly.m */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		FECAC26E224E0F5C008E54B2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FECAC26F224E0F5C008E54B2 /* PingPongViewController.h */,
+				FECAC270224E0F5C008E54B2 /* PingPongViewController.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FECAC271224E0F5C008E54B2 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				FECAC272224E0F5C008E54B2 /* PingPongProtocols.h */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		FECAC273224E0F5C008E54B2 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				FECAC274224E0F5C008E54B2 /* PingPongRouter.m */,
+				FECAC275224E0F5C008E54B2 /* PingPongRouter.h */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		FECAC27A224E1163008E54B2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		FEECBA6B2242294D00145033 = {
 			isa = PBXGroup;
 			children = (
@@ -94,8 +155,12 @@
 		FEECBA9022422A2200145033 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				FEECBA9222422A5500145033 /* SBRFUIkitController.h */,
-				FEECBA9322422A5500145033 /* SBRFUIkitController.m */,
+				FECAC27A224E1163008E54B2 /* Model */,
+				FECAC26B224E0F5C008E54B2 /* Assembly */,
+				FECAC268224E0F5C008E54B2 /* Presenter */,
+				FECAC271224E0F5C008E54B2 /* Protocols */,
+				FECAC273224E0F5C008E54B2 /* Router */,
+				FECAC26E224E0F5C008E54B2 /* View */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -216,15 +281,18 @@
 			files = (
 				FEECBA872242294F00145033 /* main.m in Sources */,
 				FEECBAA92244EC8C00145033 /* CustomCollectionViewCell.swift in Sources */,
+				FECAC279224E0F5C008E54B2 /* PingPongRouter.m in Sources */,
 				FEECBA8F2242299900145033 /* SBRFMainTabBarController.m in Sources */,
+				FECAC278224E0F5C008E54B2 /* PingPongViewController.m in Sources */,
 				FEECBA9F22423E8F00145033 /* LeftAlignedImageCell.m in Sources */,
+				FECAC276224E0F5C008E54B2 /* PingPongPresenter.m in Sources */,
 				FEECBA9C22423D7900145033 /* AnimalViewModel.m in Sources */,
 				FEECBAA72244EAFC00145033 /* SBRFUIKitCollectionViewController.swift in Sources */,
 				FEECBA9922423CE500145033 /* SBRFUIKitTableViewController.m in Sources */,
 				FEECBA792242294D00145033 /* AppDelegate.m in Sources */,
-				FEECBA9422422A5500145033 /* SBRFUIkitController.m in Sources */,
 				FEECBAA222423EA900145033 /* RightAlignedImageCell.m in Sources */,
 				FEECBAAB2244ECA300145033 /* WaterfallBouncesLayout.swift in Sources */,
+				FECAC277224E0F5C008E54B2 /* PingPongAssembly.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
