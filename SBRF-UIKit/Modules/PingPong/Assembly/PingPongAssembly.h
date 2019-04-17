@@ -12,6 +12,6 @@
 
 @interface PingPongAssembly: NSObject
 
-+ (UIViewController *)createModule;
++(UIViewController *)createModule;
 
 @end

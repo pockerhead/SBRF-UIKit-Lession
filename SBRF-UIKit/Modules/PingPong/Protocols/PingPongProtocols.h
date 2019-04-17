@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 //example
 - (void)navigateToDismiss;
 
+
 @end
 
 
@@ -43,6 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)didSelectSettings;
 - (void)didSelectStartGame;
 - (void)didSelectMenuButton;
+- (void)didSelectClearWinsButton;
 
 - (void)viewDidLoad;
 - (void)viewWillAppear;

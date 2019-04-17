@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		202F92112267953C00A6D04C /* AppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 202F92102267953C00A6D04C /* AppSettings.m */; };
+		204FD4CD225897E20051886D /* CollisionDetectorService.m in Sources */ = {isa = PBXBuildFile; fileRef = 204FD4CC225897E20051886D /* CollisionDetectorService.m */; };
+		209C1C232261E446005DDF93 /* TimerFabric.m in Sources */ = {isa = PBXBuildFile; fileRef = 209C1C222261E445005DDF93 /* TimerFabric.m */; };
 		FECAC276224E0F5C008E54B2 /* PingPongPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FECAC26A224E0F5C008E54B2 /* PingPongPresenter.m */; };
 		FECAC277224E0F5C008E54B2 /* PingPongAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = FECAC26D224E0F5C008E54B2 /* PingPongAssembly.m */; };
 		FECAC278224E0F5C008E54B2 /* PingPongViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FECAC270224E0F5C008E54B2 /* PingPongViewController.m */; };
@@ -26,6 +29,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		202F920F2267953C00A6D04C /* AppSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppSettings.h; sourceTree = "<group>"; };
+		202F92102267953C00A6D04C /* AppSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppSettings.m; sourceTree = "<group>"; };
+		204FD4CB225897E20051886D /* CollisionDetectorService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollisionDetectorService.h; sourceTree = "<group>"; };
+		204FD4CC225897E20051886D /* CollisionDetectorService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollisionDetectorService.m; sourceTree = "<group>"; };
+		209C1C212261E445005DDF93 /* TimerFabric.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimerFabric.h; sourceTree = "<group>"; };
+		209C1C222261E445005DDF93 /* TimerFabric.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimerFabric.m; sourceTree = "<group>"; };
+		209C1C4F22623839005DDF93 /* AppSettingsKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppSettingsKeys.h; sourceTree = "<group>"; };
+		209C1C502262395E005DDF93 /* PrefixHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.h; sourceTree = "<group>"; };
 		FECAC269224E0F5C008E54B2 /* PingPongPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongPresenter.h; sourceTree = "<group>"; };
 		FECAC26A224E0F5C008E54B2 /* PingPongPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PingPongPresenter.m; sourceTree = "<group>"; };
 		FECAC26C224E0F5C008E54B2 /* PingPongAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongAssembly.h; sourceTree = "<group>"; };
@@ -69,6 +80,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		202F92122267954500A6D04C /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				FEECBA772242294D00145033 /* AppDelegate.h */,
+				FEECBA782242294D00145033 /* AppDelegate.m */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		202F92132267955A00A6D04C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				209C1C502262395E005DDF93 /* PrefixHeader.h */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		202F92142267957400A6D04C /* AppSettings */ = {
+			isa = PBXGroup;
+			children = (
+				209C1C4F22623839005DDF93 /* AppSettingsKeys.h */,
+				202F920F2267953C00A6D04C /* AppSettings.h */,
+				202F92102267953C00A6D04C /* AppSettings.m */,
+			);
+			path = AppSettings;
+			sourceTree = "<group>";
+		};
+		204FD4CA225897D10051886D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				204FD4CB225897E20051886D /* CollisionDetectorService.h */,
+				204FD4CC225897E20051886D /* CollisionDetectorService.m */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		209C1C202261E434005DDF93 /* Fabrics */ = {
+			isa = PBXGroup;
+			children = (
+				209C1C212261E445005DDF93 /* TimerFabric.h */,
+				209C1C222261E445005DDF93 /* TimerFabric.m */,
+			);
+			path = Fabrics;
+			sourceTree = "<group>";
+		};
 		FECAC268224E0F5C008E54B2 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -113,13 +169,6 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
-		FECAC27A224E1163008E54B2 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		FEECBA6B2242294D00145033 = {
 			isa = PBXGroup;
 			children = (
@@ -139,11 +188,14 @@
 		FEECBA762242294D00145033 /* SBRF-UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				202F92142267957400A6D04C /* AppSettings */,
+				202F92132267955A00A6D04C /* Common */,
+				202F92122267954500A6D04C /* Application */,
+				209C1C202261E434005DDF93 /* Fabrics */,
 				FEECBA9522422AAB00145033 /* Modules */,
 				FEECBA8D2242299900145033 /* SBRFMainTabBarController.h */,
+				204FD4CA225897D10051886D /* Services */,
 				FEECBA8E2242299900145033 /* SBRFMainTabBarController.m */,
-				FEECBA772242294D00145033 /* AppDelegate.h */,
-				FEECBA782242294D00145033 /* AppDelegate.m */,
 				FEECBA802242294F00145033 /* Assets.xcassets */,
 				FEECBA822242294F00145033 /* LaunchScreen.storyboard */,
 				FEECBA852242294F00145033 /* Info.plist */,
@@ -152,17 +204,16 @@
 			path = "SBRF-UIKit";
 			sourceTree = "<group>";
 		};
-		FEECBA9022422A2200145033 /* UIKit */ = {
+		FEECBA9022422A2200145033 /* PingPong */ = {
 			isa = PBXGroup;
 			children = (
-				FECAC27A224E1163008E54B2 /* Model */,
 				FECAC26B224E0F5C008E54B2 /* Assembly */,
 				FECAC268224E0F5C008E54B2 /* Presenter */,
 				FECAC271224E0F5C008E54B2 /* Protocols */,
 				FECAC273224E0F5C008E54B2 /* Router */,
 				FECAC26E224E0F5C008E54B2 /* View */,
 			);
-			path = UIKit;
+			path = PingPong;
 			sourceTree = "<group>";
 		};
 		FEECBA9122422A2F00145033 /* UICollections */ = {
@@ -178,7 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				FEECBA9122422A2F00145033 /* UICollections */,
-				FEECBA9022422A2200145033 /* UIKit */,
+				FEECBA9022422A2200145033 /* PingPong */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -279,14 +330,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				209C1C232261E446005DDF93 /* TimerFabric.m in Sources */,
 				FEECBA872242294F00145033 /* main.m in Sources */,
 				FEECBAA92244EC8C00145033 /* CustomCollectionViewCell.swift in Sources */,
 				FECAC279224E0F5C008E54B2 /* PingPongRouter.m in Sources */,
+				202F92112267953C00A6D04C /* AppSettings.m in Sources */,
 				FEECBA8F2242299900145033 /* SBRFMainTabBarController.m in Sources */,
 				FECAC278224E0F5C008E54B2 /* PingPongViewController.m in Sources */,
 				FEECBA9F22423E8F00145033 /* LeftAlignedImageCell.m in Sources */,
 				FECAC276224E0F5C008E54B2 /* PingPongPresenter.m in Sources */,
 				FEECBA9C22423D7900145033 /* AnimalViewModel.m in Sources */,
+				204FD4CD225897E20051886D /* CollisionDetectorService.m in Sources */,
 				FEECBAA72244EAFC00145033 /* SBRFUIKitCollectionViewController.swift in Sources */,
 				FEECBA9922423CE500145033 /* SBRFUIKitTableViewController.m in Sources */,
 				FEECBA792242294D00145033 /* AppDelegate.m in Sources */,
@@ -429,6 +483,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 54X9L274YP;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SBRF-UIKit/Common/PrefixHeader.h";
 				INFOPLIST_FILE = "SBRF-UIKit/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -451,6 +507,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 54X9L274YP;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SBRF-UIKit/Common/PrefixHeader.h";
 				INFOPLIST_FILE = "SBRF-UIKit/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12;
 				LD_RUNPATH_SEARCH_PATHS = (

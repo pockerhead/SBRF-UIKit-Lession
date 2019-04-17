@@ -10,7 +10,8 @@
 
 #import "PingPongViewController.h"
 #import <UIKit/UIKit.h>
-
+#import "CollisionDetectorService.h"
+#import "TimerFabric.h"
 
 @interface PingPongViewController () <PingPongView>
 
@@ -18,17 +19,17 @@
 @property (strong, nonatomic) UIView *topRocket;
 @property (strong, nonatomic) UIView *bottomRocket;
 @property (strong, nonatomic) UIView *gameMenuView;
+@property (strong, nonatomic) UIView *countDownTimerView;
+@property (strong, nonatomic) UILabel *countDownTimerLabel;
 @property (strong, nonatomic) UIView *menuOverlay;
 @property (strong, nonatomic) UIView *settingsOverlay;
 @property (assign, nonatomic) CGFloat ballDx;
 @property (assign, nonatomic) CGFloat ballDy;
-@property (assign, nonatomic) BOOL waitToPlayerInput;
 @property (assign, nonatomic) NSTimer *gameTimer;
-@property (assign, nonatomic) NSInteger bottomWins;
-@property (assign, nonatomic) NSInteger topWins;
+@property (assign, nonatomic) NSTimer *countDownTimer;
 @property (assign, nonatomic) NSTimeInterval timerInterval;
-@property (assign, nonatomic) BOOL isTopComputer;
-@property (assign, nonatomic) BOOL isBottomComputer;
+@property (strong, nonatomic) TimerFabric *timerFabric;
+
 
 @end
 
@@ -41,7 +42,9 @@ static CGFloat const buttonsHeight = 30;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.timerFabric = [TimerFabric new];
     [self configureUI];
+    [self setInitialState];
     [self.presenter viewDidLoad];
 }
 
@@ -78,38 +81,79 @@ static CGFloat const buttonsHeight = 30;
 
 - (void)didSelectMenuButton
 {
+    [self hideCountDownView];
     [self.presenter didSelectMenuButton];
 }
 
 - (void)speedSliderValueChanged: (UISlider *)sender
 {
+    [AppSettings setSpeedSliderValue:sender.value];
     self.ballDx = sender.value * 2.5;
     self.ballDy = sender.value * 3.7;
 }
 
 - (void)topSwitchValueChanged:(UISwitch *)sender
 {
-    self.isTopComputer = sender.isOn;
+    [AppSettings setIsTopComputer:sender.isOn];
 }
 
 - (void)bottomSwitchValueChanged:(UISwitch *)sender
 {
-    self.isBottomComputer = sender.isOn;
+    [AppSettings setIsBottomComputer:sender.isOn];
 }
 
+- (void)didSelectClearWinsButton
+{
+    [self.presenter didSelectClearWinsButton];
+}
 // MARK: - PingPongView
 
 - (void)startGame
 {
-    self.navigationItem.title = [NSString stringWithFormat:@"%ld : %ld", (long)self.topWins, (long)self.bottomWins];
+    self.navigationItem.title = [NSString stringWithFormat:@"%ld : %ld", (long)[AppSettings topWins], (long)[AppSettings bottomWins]];
     [self placeViewsAtGameStart];
-    self.waitToPlayerInput = YES;
-    [self continueGame];
+    self.countDownTimerView.alpha = 0;
+    [self showCountDownViewWithText:@"3"];
+    [UIView animateWithDuration:0.2 animations:^{
+        self.countDownTimerView.alpha = 1;
+    } completion:^(BOOL finished) {
+        [self startCountDownWithCountdown:2 completion:^{
+            [self hideCountDownView];
+            [self continueGame];
+        }];
+    }];
+    
+}
+
+- (void)startCountDownWithCountdown:(NSInteger)countdown completion:(void(^)(void))completion
+{
+    self.countDownTimer = [self.timerFabric getTimerWithInterval:1 countDown:countdown intervalBlock:^(NSTimer * _Nonnull timer, NSInteger countDown) {
+        [UIView transitionWithView:self.countDownTimerLabel duration:0.2 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+            self.countDownTimerLabel.text = [NSString stringWithFormat:@"%@", @(countDown)];
+        } completion:nil];
+    } completionBlock:^{
+        completion();
+    }];
+}
+
+- (void)hideCountDownView
+{
+    [self.countDownTimerView setHidden:YES];
+    [self.countDownTimer invalidate];
+    self.countDownTimer = nil;
+}
+
+- (void)showCountDownViewWithText:(NSString *)text
+{
+    [self.countDownTimerView setHidden:NO];
+    self.countDownTimerLabel.text = text;
 }
 
 - (void)continueGame
 {
-    self.gameTimer = [NSTimer scheduledTimerWithTimeInterval:self.timerInterval target:self selector:@selector(runLoop) userInfo:nil repeats:YES];
+    self.gameTimer = [self.timerFabric getTimerWithInterval:self.timerInterval intervalBlock:^(NSTimer * _Nonnull timer) {
+        [self runLoop];
+    }];
 }
 
 - (void)pauseGame
@@ -118,31 +162,9 @@ static CGFloat const buttonsHeight = 30;
     self.gameTimer = nil;
 }
 
-- (void)playerWin:(BOOL)isTop
-{
-    if (isTop)
-    {
-        self.topWins += 1;
-    }
-    else
-    {
-        self.bottomWins += 1;
-    }
-    [self pauseGame];
-    [self startGame];
-}
-
-- (void)placeViewsAtGameStart
-{
-    self.topRocket.frame = CGRectMake(0, self.view.safeAreaInsets.top, CGRectGetWidth(self.view.frame) / 3, rocketsHeight);
-    self.bottomRocket.frame = CGRectMake(0, CGRectGetHeight(self.view.frame) - self.view.safeAreaInsets.bottom - rocketsHeight, CGRectGetWidth(self.view.frame) / 3, rocketsHeight);
-    self.ball.center = self.view.center;
-    self.topRocket.center = CGPointMake(self.view.center.x, self.topRocket.center.y);
-    self.bottomRocket.center = CGPointMake(self.view.center.x, self.bottomRocket.center.y);
-}
-
 - (void)displayMenu
 {
+    [self hideSettingsButton];
     [self.gameMenuView setHidden:NO];
     [UIView animateWithDuration:0.4 animations:^{
         self.gameMenuView.alpha = 1;
@@ -151,11 +173,13 @@ static CGFloat const buttonsHeight = 30;
 
 - (void)hideMenu
 {
+    [self displaySettingsButton];
     [UIView animateWithDuration:0.2 animations:^{
         self.gameMenuView.alpha = 0;
     } completion:^(BOOL finished) {
         [self.gameMenuView setHidden:YES];
-    }];}
+    }];
+}
 
 - (void)displayGameOverlay
 {
@@ -195,26 +219,38 @@ static CGFloat const buttonsHeight = 30;
     
 }
 
+#pragma mark - Score
+
+- (void)playerWin:(BOOL)isTop
+{
+    if (isTop)
+    {
+        [AppSettings setTopWins:[AppSettings topWins] + 1];
+    }
+    else
+    {
+        [AppSettings setBottomWins:[AppSettings bottomWins] + 1];
+    }
+    [self pauseGame];
+    [self startGame];
+}
 
 // MARK: - Touches Handle
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    self.waitToPlayerInput = NO;
-    [self chooesPlayerFrom:touches];
+    [self choosePlayerFrom:touches];
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    [self chooesPlayerFrom:touches];
+    [self choosePlayerFrom:touches];
 }
 
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    
-}
+#pragma mark - Choose player from screen half
 
-- (void)chooesPlayerFrom: (NSSet <UITouch *>*)touches
+
+- (void)choosePlayerFrom: (NSSet <UITouch *>*)touches
 {
     UITouch *touch1;
     UITouch *touch2;
@@ -233,11 +269,11 @@ static CGFloat const buttonsHeight = 30;
         }
     }
     
-    if (touch1)
+    if (touch1 && [AppSettings isBottomComputer] == false)
     {
         self.bottomRocket.center = CGPointMake([touch1 locationInView:self.view].x, self.bottomRocket.center.y);
     }
-    if (touch2)
+    if (touch2 && [AppSettings isTopComputer] == false)
     {
         self.topRocket.center = CGPointMake([touch2 locationInView:self.view].x, self.topRocket.center.y);
     }
@@ -247,20 +283,17 @@ static CGFloat const buttonsHeight = 30;
 
 - (void)runLoop
 {
-    if (self.waitToPlayerInput)
-    {
-        return;
-    }
     [self detectBallAndViewBoundsCollision];
     [self detectBallAndRocketsCollision];
     self.ball.center = CGPointMake(self.ball.center.x + self.ballDx, self.ball.center.y + self.ballDy);
     
-    if (self.isTopComputer)
+    // MARK: - AI =)
+    if ([AppSettings isTopComputer])
     {
         self.topRocket.center = CGPointMake(self.ball.center.x, self.topRocket.center.y);
     }
     
-    if (self.isBottomComputer)
+    if ([AppSettings isBottomComputer])
     {
         self.bottomRocket.center = CGPointMake(self.ball.center.x, self.bottomRocket.center.y);
     }
@@ -271,12 +304,12 @@ static CGFloat const buttonsHeight = 30;
 
 - (void)detectBallAndViewBoundsCollision
 {
-    if (CGRectGetMaxX(self.ball.frame) >= CGRectGetWidth(self.view.frame) || CGRectGetMinX(self.ball.frame) <= CGRectGetMinX(self.view.frame))
+    if ([CollisionDetectorService isRectCollide:self.ball.frame withSideBounds:self.view.bounds])
     {
         self.ballDx *= -1;
     }
     
-    if (CGRectGetMaxY(self.ball.frame) >= CGRectGetHeight(self.view.frame) - self.view.safeAreaInsets.bottom || CGRectGetMinY(self.ball.frame) <= self.view.safeAreaInsets.top)
+    if ([CollisionDetectorService isRectCollide:self.ball.frame withTopBottomBounds:self.view])
     {
         BOOL isTop = (self.ballDy > 0);
         [self playerWin: isTop];
@@ -285,15 +318,37 @@ static CGFloat const buttonsHeight = 30;
 
 - (void)detectBallAndRocketsCollision
 {
-    if (CGRectGetMinY(self.ball.frame) <= CGRectGetMaxY(self.topRocket.frame) && (CGRectGetMaxX(self.ball.frame) >= CGRectGetMinX(self.topRocket.frame) && CGRectGetMinX(self.ball.frame) <= CGRectGetMaxX(self.topRocket.frame)))
+    if ([CollisionDetectorService isRectCollide:self.ball.frame withRect:self.topRocket.frame])
     {
         self.ballDy = fabs(self.ballDy);
     }
     
-    if (CGRectGetMaxY(self.ball.frame) >= CGRectGetMinY(self.bottomRocket.frame) && (CGRectGetMaxX(self.ball.frame) >= CGRectGetMinX(self.bottomRocket.frame) && CGRectGetMinX(self.ball.frame) <= CGRectGetMaxX(self.bottomRocket.frame)))
+    if ([CollisionDetectorService isRectCollide:self.ball.frame withRect:self.bottomRocket.frame])
     {
         self.ballDy = -fabs(self.ballDy);
     }
+}
+
+// MARK: - UI Configuration
+
+- (void)placeViewsAtGameStart
+{
+    self.topRocket.frame = CGRectMake(0, self.view.safeAreaInsets.top, CGRectGetWidth(self.view.frame) / 3, rocketsHeight);
+    self.bottomRocket.frame = CGRectMake(0, CGRectGetHeight(self.view.frame) - self.view.safeAreaInsets.bottom - rocketsHeight, CGRectGetWidth(self.view.frame) / 3, rocketsHeight);
+    self.ball.center = self.view.center;
+    self.topRocket.center = CGPointMake(self.view.center.x, self.topRocket.center.y);
+    self.bottomRocket.center = CGPointMake(self.view.center.x, self.bottomRocket.center.y);
+}
+
+- (void)displaySettingsButton
+{
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Меню" style:UIBarButtonItemStylePlain target:self action:@selector(didSelectMenuButton)];
+}
+
+- (void)hideSettingsButton
+{
+    self.navigationItem.rightBarButtonItem = nil;
+    
 }
 
 - (void)configureUI
@@ -301,7 +356,15 @@ static CGFloat const buttonsHeight = 30;
     //configure UI
     self.navigationItem.title = @"Ping Pong Game";
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(didSelectMenuButton)];
+    [self configureGameField];
+    [self configureGameMenu];
+    [self configureMenuOverlay];
+    [self configureSettingsOverlay];
+    [self configureCountdownView];
+}
+
+- (void)configureGameField
+{
     // MARK: - Ball configure
     self.ball = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
     self.ball.backgroundColor = [UIColor blackColor];
@@ -319,16 +382,26 @@ static CGFloat const buttonsHeight = 30;
     self.bottomRocket.backgroundColor = [UIColor blackColor];
     self.bottomRocket.layer.cornerRadius = CGRectGetHeight(self.bottomRocket.frame) / 2;
     [self.view addSubview:self.bottomRocket];
-    
-    // MARK: - ConfigureGameMenu
+}
+
+// MARK: - ConfigureGameMenu
+
+- (void)configureGameMenu
+{
     self.gameMenuView = [[UIView alloc] initWithFrame:self.view.frame];
     UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleProminent];
     UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:blur];
     blurView.frame = self.gameMenuView.bounds;
     [self.gameMenuView addSubview:blurView];
-    
-    
-    // MARK: - configure menuOverlay
+    [self.view addSubview:self.gameMenuView];
+    self.gameMenuView.alpha = 0;
+    [self.gameMenuView setHidden:YES];
+}
+
+// MARK: - configure menuOverlay
+
+- (void)configureMenuOverlay
+{
     
     self.menuOverlay = [[UIView alloc] initWithFrame:self.gameMenuView.bounds];
     [self.gameMenuView addSubview: self.menuOverlay];
@@ -354,8 +427,12 @@ static CGFloat const buttonsHeight = 30;
     [self.menuOverlay addSubview:settingsButton];
     self.menuOverlay.alpha = 0;
     [self.menuOverlay setHidden:YES];
-    
-    // MARK: - configure settingsOverlay
+}
+
+// MARK: - configure settingsOverlay
+
+- (void)configureSettingsOverlay
+{
     
     self.settingsOverlay = [[UIView alloc] initWithFrame:self.gameMenuView.bounds];
     [self.gameMenuView addSubview: self.settingsOverlay];
@@ -367,7 +444,7 @@ static CGFloat const buttonsHeight = 30;
     [self.settingsOverlay addSubview:speedLabel];
     
     UISlider *speedSlider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width / 2, 30)];
-    speedSlider.value = 0.5;
+    speedSlider.value = [AppSettings speedSliderValue];
     speedSlider.center = CGPointMake(self.settingsOverlay.center.x, self.settingsOverlay.center.y - 50);
     [speedSlider addTarget:self action:@selector(speedSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     [self.settingsOverlay addSubview:speedSlider];
@@ -379,7 +456,7 @@ static CGFloat const buttonsHeight = 30;
     topPlayerCompLabel.text = @"Верхний игрок - комп";
     [stackView1 addArrangedSubview:topPlayerCompLabel];
     UISwitch *topPlayerCompSwitch = [UISwitch new];
-    [topPlayerCompSwitch setOn:YES];
+    [topPlayerCompSwitch setOn:[AppSettings isTopComputer]];
     [topPlayerCompSwitch addTarget:self action:@selector(topSwitchValueChanged:) forControlEvents:UIControlEventValueChanged];
     [stackView1 addArrangedSubview:topPlayerCompSwitch];
     stackView1.center = CGPointMake(self.settingsOverlay.center.x, self.settingsOverlay.center.y);
@@ -392,7 +469,7 @@ static CGFloat const buttonsHeight = 30;
     bottomPlayerCompLabel.text = @"Нижний игрок - комп";
     [stackView2 addArrangedSubview:bottomPlayerCompLabel];
     UISwitch *bottomPlayerCompSwitch = [UISwitch new];
-    [bottomPlayerCompSwitch setOn:NO];
+    [bottomPlayerCompSwitch setOn:[AppSettings isBottomComputer]];
     [bottomPlayerCompSwitch addTarget:self action:@selector(bottomSwitchValueChanged:) forControlEvents:UIControlEventValueChanged];
     [stackView2 addArrangedSubview:bottomPlayerCompSwitch];
     stackView2.center = CGPointMake(self.settingsOverlay.center.x, self.settingsOverlay.center.y + 40);
@@ -406,17 +483,54 @@ static CGFloat const buttonsHeight = 30;
     settingsDoneButton.center = CGPointMake(self.settingsOverlay.center.x, self.settingsOverlay.center.y + 100);
     [settingsDoneButton addTarget:self action:@selector(didSelectMenuButton) forControlEvents:UIControlEventTouchUpInside];
     [self.settingsOverlay addSubview:settingsDoneButton];
+    
+    
+    UIButton *clearWinsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), buttonsHeight)];
+    [clearWinsButton setTitle:[@"Сбросить счет" uppercaseString] forState:UIControlStateNormal];
+    clearWinsButton.titleLabel.font = [UIFont systemFontOfSize:17 weight:UIFontWeightBold];
+    [clearWinsButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [clearWinsButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    clearWinsButton.center = CGPointMake(self.settingsOverlay.center.x, self.settingsOverlay.center.y + 150);
+    [clearWinsButton addTarget:self action:@selector(didSelectClearWinsButton) forControlEvents:UIControlEventTouchUpInside];
+    [self.settingsOverlay addSubview:clearWinsButton];
+    
     self.settingsOverlay.alpha = 0;
     [self.settingsOverlay setHidden:YES];
+}
+
+// MARK: - Countdown View
+
+- (void)configureCountdownView
+{
     
-    [self.view addSubview:self.gameMenuView];
-    self.gameMenuView.alpha = 0;
-    [self.gameMenuView setHidden:YES];
+    self.countDownTimerView = [UIView new];
+    self.countDownTimerView.frame = CGRectMake(0, 0, 150, 150);
+    self.countDownTimerView.layer.cornerRadius = 15;
+    self.countDownTimerView.layer.masksToBounds = YES;
+    self.countDownTimerLabel.clipsToBounds = YES;
+    UIBlurEffect *cdblur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    UIVisualEffectView *cdblurView = [[UIVisualEffectView alloc] initWithEffect:cdblur];
+    cdblurView.frame = self.countDownTimerView.bounds;
+    [self.countDownTimerView addSubview:cdblurView];
+    self.countDownTimerLabel = [UILabel new];
+    self.countDownTimerLabel.font = [UIFont systemFontOfSize:99 weight:UIFontWeightBold];
+    self.countDownTimerLabel.minimumScaleFactor = 0.001;
+    self.countDownTimerLabel.textColor = UIColor.whiteColor;
+    self.countDownTimerLabel.frame = self.countDownTimerView.bounds;
+    self.countDownTimerLabel.textAlignment = NSTextAlignmentCenter;
+    [self.countDownTimerView addSubview:self.countDownTimerLabel];
+    [self.view addSubview:self.countDownTimerView];
+    self.countDownTimerView.center = self.view.center;
+    [self.countDownTimerView setHidden:YES];
     
-    // MARK: - InitialState
-    self.isTopComputer = YES;
-    self.ballDx = 1;
-    self.ballDy = 1;
+}
+
+// MARK: - InitialState
+
+- (void)setInitialState
+{
+    self.ballDx = [AppSettings speedSliderValue] * 2.5;
+    self.ballDy = [AppSettings speedSliderValue] * 3.7;
     self.timerInterval = 0.005;
 }
 

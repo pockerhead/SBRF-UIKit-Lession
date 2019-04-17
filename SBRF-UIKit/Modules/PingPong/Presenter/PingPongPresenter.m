@@ -12,9 +12,16 @@
 #import <UIKit/UIKit.h>
 #import "PingPongPresenter.h"
 #import "PingPongProtocols.h"
+#import "CollisionDetectorService.h"
 
 @interface PingPongPresenter () <PingPongPresenterInterface>
 @property (strong, nonatomic) NSObject<PingPongWireframeInterface>* router;
+@property (assign, nonatomic) BOOL isTopComputer;
+@property (assign, nonatomic) BOOL isBottomComputer;
+@property (assign, nonatomic) NSInteger bottomWins;
+@property (assign, nonatomic) NSInteger topWins;
+@property (assign, nonatomic) CGFloat ballDx;
+@property (assign, nonatomic) CGFloat ballDy;
 @end
 
 @implementation PingPongPresenter
@@ -56,6 +63,12 @@
     [self.view displaySettings];
 }
 
+- (void)didSelectClearWinsButton
+{
+    [AppSettings setTopWins:0];
+    [AppSettings setBottomWins:0];
+}
+
 
 - (void)didSelectStartGame {
     [self.view hideMenu];
@@ -68,7 +81,5 @@
     [self.view hideSettings];
     [self.view displayGameOverlay];
 }
-
-
 
 @end
